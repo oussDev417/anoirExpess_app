@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "940643977861",
+    "project_id": "anoir-express-app",
+    "storage_bucket": "anoir-express-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940643977861:android:4ad68a9e8d0597f20d37ec",
+        "android_client_info": {
+          "package_name": "com.anoir.anoirexpress"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2ml0J44tM81AjYJAzFT7JllYgX94Ob3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940643977861:android:d94c38339d3e840d0d37ec",
+        "android_client_info": {
+          "package_name": "com.example.anoirexpress"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2ml0J44tM81AjYJAzFT7JllYgX94Ob3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

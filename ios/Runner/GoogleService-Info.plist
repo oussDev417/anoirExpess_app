@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAwWKaLjnVbJnymdU0qGT3QztcfJgfPZ-4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>940643977861</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.anoir.anoirexpress</string>
+	<key>PROJECT_ID</key>
+	<string>anoir-express-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>anoir-express-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:940643977861:ios:72be0f1c65dff11d0d37ec</string>
+</dict>
+</plist>
