@@ -1,4 +1,4 @@
-package com.anoir.anoirexpress
+package com.anoirbilly.anoirexpress
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -45,7 +45,7 @@ class NotificationService{
   }
 
   saveUserFcmToken(fcmToken) async {
-    if(prefs!.containsKey('token')){//on login
+    if(prefs?.containsKey('token') ?? false){//on login
       UserService userService = UserService();
       try{
         await userService.updateMessagingToken(fcmToken);
@@ -131,7 +131,7 @@ class NotificationService{
   }
 
   static onLocalNotificationTapped(NotificationResponse message){
-    if(prefs!.getString('role') == 'DELIVER'){
+    if(prefs?.getString('role') == 'DELIVER'){
       Get.offAll(()=>DeliverHomeScreen());
     }
     else{
@@ -186,7 +186,7 @@ class NotificationService{
 //     if (notification.metadatas == null) {
 //       notification.metadatas = Map();
 //     }
-//     notification.metadatas!.putIfAbsent("AUTHOR_UID", () => prefs!.getString('token'));
+//     notification.metadatas!.putIfAbsent("AUTHOR_UID", () => prefs?.getString('token'));
 //
 //     log('MESSAGE ID ${notification.key}');
 //     databaseService.getNotifRef().doc(receiverUid).set({

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2),(){
-      Get.off(()=> prefs!.containsKey('token') ? HomeScreen() : OnboardingScreen());
+      Get.off(()=> (prefs?.containsKey('token') ?? false) ? HomeScreen() : OnboardingScreen());
     });
     super.initState();
   }

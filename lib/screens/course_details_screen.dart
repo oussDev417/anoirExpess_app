@@ -64,7 +64,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: GestureDetector(
               onTap: () {
-                if(widget.course.status == 'WAITING' && prefs!.getString('role') == 'CLIENT'){
+                if(widget.course.status == 'WAITING' && prefs?.getString('role') == 'CLIENT'){
                   cancelCommandAlert(context);
                 }
               },
@@ -94,7 +94,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
           ),
         ],onPop: (){
             if(widget.goHome!){
-              if(prefs!.getString('role') == 'DELIVER'){
+              if(prefs?.getString('role') == 'DELIVER'){
                 Get.offAll(()=>DeliverHomeScreen());
               }
               else{
@@ -111,9 +111,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  prefs!.getString('role') == 'CLIENT' ? DeliverResultComponent(course : widget.course) : ClientResultComponent(course : widget.course),
+                  prefs?.getString('role') == 'CLIENT' ? DeliverResultComponent(course : widget.course) : ClientResultComponent(course : widget.course),
                   SizedBox(height: 16,),
-                  prefs!.getString('role') == 'CLIENT' ? CourseProgressComponent(course : widget.course!) : Column(
+                  prefs?.getString('role') == 'CLIENT' ? CourseProgressComponent(course : widget.course!) : Column(
                     children: [
                       widget.course.type == 'PERSON_TRANSPORTATION' ? SizedBox() : Container(
                         decoration: BoxDecoration(
@@ -171,7 +171,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                   ),
                   SizedBox(height: 20,),
 
-                  widget.course.status == 'ACCEPTED' && prefs!.getString('role') == 'CLIENT' ? buildDeliveryCode(context) : SizedBox(),
+                  widget.course.status == 'ACCEPTED' && prefs?.getString('role') == 'CLIENT' ? buildDeliveryCode(context) : SizedBox(),
                   SizedBox(height: 200,)
                 ],
               ),

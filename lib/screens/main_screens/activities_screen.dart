@@ -64,7 +64,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
           centerTitle: false,
           title: Text(AppTranslations.of(context)!.text('mesActivites') + '(${myCourses.length})', style: TextStyle(fontFamily: AppStyle.primaryFont,fontSize: AppStyle.size28,color : Colors.black, fontWeight: FontWeight.w700,),),
         ),
-        bottomNavigationBar: prefs!.getString('role') == 'DELIVER' ? AnoirDeliverBottomNavigationBar() : AnoirBottomNavigationBar(),
+        bottomNavigationBar: prefs?.getString('role') == 'DELIVER' ? AnoirDeliverBottomNavigationBar() : AnoirBottomNavigationBar(),
         body: isLoading ? Container(height: Helpers.getScreenHeight(context),child: Center(child: CircularProgressIndicator(color: AppColors.primaryBlueColor,),),) : myCourses.length == 0 ? SizedBox(height: 200,child: Center(child: Text(AppTranslations.of(context)!.text('vousNavezEncoreAucuneCourse'))),) :  SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
           child: Column(

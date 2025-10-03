@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "940643977861",
     "project_id": "anoir-express-app",
-    "storage_bucket": "anoir-express-app.appspot.com"
+    "storage_bucket": "anoir-express-app.firebasestorage.app"
   },
   "client": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:940643977861:android:d94c38339d3e840d0d37ec",
+        "mobilesdk_app_id": "1:940643977861:android:1b63e4e07da2d14a0d37ec",
         "android_client_info": {
-          "package_name": "com.example.anoirexpress"
+          "package_name": "com.anoirbilly.anoirexpress"
         }
       },
       "oauth_client": [],

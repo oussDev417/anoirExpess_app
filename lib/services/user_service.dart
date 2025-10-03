@@ -51,11 +51,11 @@ class UserService{
       log(response.body.toString());
       var data = json.decode(response.body);
       if([200,201].contains(response.statusCode)){
-        prefs!.setString('token',data['token']);
-        prefs!.setString('role',data['role']);
-        prefs!.setString('userId',data['id']);
+        prefs?.setString('token',data['token']);
+        prefs?.setString('role',data['role']);
+        prefs?.setString('userId',data['id']);
         if(data['deliverId'] != null){
-          prefs!.setString('deliverId',data['deliverId']);
+          prefs?.setString('deliverId',data['deliverId']);
         }
         NotificationService().init();
         return ApiResult(code: 200, message: 'loginSuccessfully',success: true);
@@ -72,21 +72,32 @@ class UserService{
 
   Future<User?> getUserProfile() async {
     try{
+      log('🔍 UserService: Starting getUserProfile...');
       const url = '$API_URL/users/profile';
+      String? token = prefs?.getString('token');
+      log('🔑 UserService: Token found: ${token != null ? 'YES' : 'NO'}');
+      if(token == null) {
+        log('❌ UserService: No token found for profile request');
+        return null;
+      }
+      log('🌐 UserService: Making request to: $url');
       var response = await http.get(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer $token"
       });
-      log(response.statusCode.toString());
-      log(response.body.toString());
+      log('📡 UserService: Response status: ${response.statusCode}');
+      log('📄 UserService: Response body: ${response.body}');
       if([200].contains(response.statusCode)){
-       return User.fromMap(json.decode(response.body));
+        User user = User.fromMap(json.decode(response.body));
+        log('✅ UserService: User parsed successfully - ${user.firstname} ${user.lastname}');
+        return user;
       }
       else{
+        log('❌ UserService: API returned status ${response.statusCode}');
         return null;
       }
     }
     catch(e){
-      log('ERROR ON profile $e');
+      log('❌ UserService: ERROR ON profile $e');
       return null;
     }
   }
@@ -94,8 +105,13 @@ class UserService{
   Future<User?> getUserById(String userId) async {
     try{
       const url = '$API_URL/users/get-a-user-profile';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for getUserById request');
+        return null;
+      }
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}",
+        "Authorization" : "Bearer $token",
       },
       body : {
         "userId" : userId
@@ -118,11 +134,16 @@ class UserService{
   getUserNotes() async {
     try{
       const url = '$API_URL/users/get-deliver-notes';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for getUserNotes request');
+        return [];
+      }
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}",
+        "Authorization" : "Bearer $token",
       },
           body : {
-            "deliverId" : prefs!.getString('deliverId')
+            "deliverId" : prefs?.getString('deliverId') ?? ''
           });
 
       log(response.statusCode.toString());
@@ -148,8 +169,13 @@ class UserService{
   noteDeliver(String note, String? deliverId) async {
     try{
       const url = '$API_URL/users/note-a-deliver';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for noteDeliver request');
+        return ApiResult(code: 401, message: 'No token', success: false);
+      }
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}",
+        "Authorization" : "Bearer $token",
       },
           body : {
             "deliverId" : deliverId,
@@ -173,11 +199,16 @@ class UserService{
   updateMessagingToken(String fcmToken) async {
     try{
       const url = '$API_URL/users/update-notif-token';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for updateMessagingToken request');
+        return false;
+      }
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}",
+        "Authorization" : "Bearer $token",
       },
           body : {
-            "userId" : prefs!.getString('userId'),
+            "userId" : prefs?.getString('userId') ?? '',
             "token" : fcmToken
           });
 
@@ -233,9 +264,14 @@ class UserService{
   updateProfile(String firstname,String lastname) async{
     try{
       const url = '$API_URL/users/update-user-profile';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for updateProfile request');
+        return false;
+      }
       var response = await http.post(Uri.parse(url),
           headers: {
-            "Authorization" : "Bearer ${prefs!.getString('token')}",
+            "Authorization" : "Bearer $token",
           },
           body : {
             "firstname" : firstname,
@@ -259,9 +295,14 @@ class UserService{
   Future<ApiResult> updatePassword(String oldPassword, String newPassword) async {
     try{
       const url = '$API_URL/users/update-password';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for updatePassword request');
+        return ApiResult(code: 401, message: 'No token', success: false);
+      }
       var response = await http.post(Uri.parse(url),
           headers: {
-            "Authorization" : "Bearer ${prefs!.getString('token')}",
+            "Authorization" : "Bearer $token",
           },
           body : {
             "current" : oldPassword,
@@ -297,8 +338,13 @@ class UserService{
   Future<List<dynamic>> getUserNotifs() async {
     try{
       const url = '$API_URL/users/get-user-notifs';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for getUserNotifs request');
+        return [];
+      }
       var response = await http.get(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer $token"
       });
       log(response.statusCode.toString());
       log(response.body.toString());
@@ -318,12 +364,17 @@ class UserService{
   deleteUserAccount() async {
     try{
       const url = '$API_URL/users/delete-account';
+      String? token = prefs?.getString('token');
+      if(token == null) {
+        log('No token found for deleteUserAccount request');
+        return ApiResult(code: 401, message: 'No token', success: false);
+      }
       var response = await http.delete(Uri.parse(url),
           headers: {
-            "Authorization" : "Bearer ${prefs!.getString('token')}",
+            "Authorization" : "Bearer $token",
           },
           body : {
-            "id" : prefs!.getString('userId'),
+            "id" : prefs?.getString('userId') ?? '',
           });
       log(response.statusCode.toString());
       log(response.body.toString());

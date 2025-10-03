@@ -17,6 +17,52 @@ import 'package:upgrader/upgrader.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Déterminer l'écran initial de manière sécurisée
+    Widget initialScreen = OnboardingScreen();
+    
+    if (prefs?.containsKey('token') == true) {
+      String? role = prefs?.getString('role');
+      if (role == 'CLIENT') {
+        initialScreen = UpgradeAlert(
+          upgrader: Upgrader(
+            debugLogging: true,
+            durationUntilAlertAgain: Duration(days: 2),
+            debugDisplayAlways: false,
+            willDisplayUpgrade: ({required bool display,
+              String? installedVersion,
+              UpgraderVersionInfo? versionInfo}) {
+              log('CHECK ' + display.toString());
+              log('CHECK ' + installedVersion.toString());
+              log('CHECK ' + versionInfo.toString());
+            }
+          ),
+          showIgnore: true,
+          showLater: false,
+          showReleaseNotes: false,
+          child: HomeScreen()
+        );
+      } else if (role == 'DELIVER') {
+        initialScreen = UpgradeAlert(
+          upgrader: Upgrader(
+            debugLogging: true,
+            durationUntilAlertAgain: Duration(days: 2),
+            debugDisplayAlways: false,
+            willDisplayUpgrade: ({required bool display,
+              String? installedVersion,
+              UpgraderVersionInfo? versionInfo}) {
+              log('CHECK ' + display.toString());
+              log('CHECK ' + installedVersion.toString());
+              log('CHECK ' + versionInfo.toString());
+            }
+          ),
+          showIgnore: true,
+          showLater: false,
+          showReleaseNotes: false,
+          child: DeliverHomeScreen()
+        );
+      }
+    }
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ANNOIR EXPRESS',
@@ -33,39 +79,7 @@ class MyApp extends StatelessWidget {
         Locale('fr',''),
         Locale('en',''),
       ],
-      home: !prefs!.containsKey('token') ? OnboardingScreen() : prefs!.getString('role') == 'CLIENT' ? UpgradeAlert(
-          upgrader : Upgrader(
-              debugLogging: true,
-              durationUntilAlertAgain: Duration(days: 2),
-              debugDisplayAlways: false,
-              willDisplayUpgrade : ({required bool display,
-                String? installedVersion,
-                UpgraderVersionInfo? versionInfo}){
-                log('CHECK ' + display.toString());
-                log('CHECK ' + installedVersion.toString());
-                log('CHECK ' + versionInfo.toString());
-              }
-          ),
-          showIgnore :  true,
-          showLater :   false,
-          showReleaseNotes: false,
-          child: HomeScreen()) :  prefs!.getString('role') == 'DELIVER' ? UpgradeAlert(
-          upgrader : Upgrader(
-              debugLogging: true,
-              durationUntilAlertAgain: Duration(days: 2),
-              debugDisplayAlways: false,
-              willDisplayUpgrade : ({required bool display,
-                String? installedVersion,
-                UpgraderVersionInfo? versionInfo}){
-                log('CHECK ' + display.toString());
-                log('CHECK ' + installedVersion.toString());
-                log('CHECK ' + versionInfo.toString());
-              }
-          ),
-          showIgnore :  true,
-          showLater :   false,
-          showReleaseNotes: false,
-          child: DeliverHomeScreen()) : OnboardingScreen()
+      home: initialScreen
     );
   }
 }

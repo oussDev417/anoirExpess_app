@@ -45,7 +45,7 @@ class _AccountScreenState extends State<AccountScreen> {
             title: Text(AppTranslations.of(context)!.text('profile'), style: TextStyle(fontFamily: AppStyle.primaryFont,fontSize: AppStyle.size24,color : AppColors.black2Color, fontWeight: FontWeight.w700,),),
 
           ),
-          bottomNavigationBar: prefs!.getString('role') == 'DELIVER' ? AnoirDeliverBottomNavigationBar() : AnoirBottomNavigationBar(),
+          bottomNavigationBar: prefs?.getString('role') == 'DELIVER' ? AnoirDeliverBottomNavigationBar() : AnoirBottomNavigationBar(),
           body: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -62,7 +62,11 @@ class _AccountScreenState extends State<AccountScreen> {
                   CircleAvatar(child: Icon(Icons.person,color: AppColors.primaryBlueColor,size: 50,),radius: 40,backgroundColor: Colors.white,),
         // CircleAvatar(backgroundImage: AssetImage('assets/png/img_profile.png'),radius: 40,),
                       SizedBox(width: 20,),
-                      Text(userController.currentUser == null ? '' : userController.currentUser!.firstname + " " + userController.currentUser!.lastname,textAlign : TextAlign.center, style: TextStyle(fontFamily: AppStyle.secondaryFont,color: Colors.white,fontSize: AppStyle.size16,fontWeight: FontWeight.w400,overflow: TextOverflow.ellipsis),)
+                      GetBuilder<UserController>(
+                        builder: (userController) {
+                          return Text(userController.currentUser == null ? '' : userController.currentUser!.firstname + " " + userController.currentUser!.lastname,textAlign : TextAlign.center, style: TextStyle(fontFamily: AppStyle.secondaryFont,color: Colors.white,fontSize: AppStyle.size16,fontWeight: FontWeight.w400,overflow: TextOverflow.ellipsis),);
+                        }
+                      )
                     ],
                   ),
                 ),
@@ -79,7 +83,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     title : Text(AppTranslations.of(context)!.text('personalInformations'), style: TextStyle(fontFamily: AppStyle.secondaryFont,fontSize: AppStyle.size16,fontWeight: FontWeight.w400,overflow: TextOverflow.ellipsis),)
                   ),
                 ),
-                prefs!.getString('role') == 'DELIVER' ? InkWell(
+                prefs?.getString('role') == 'DELIVER' ? InkWell(
                   onTap: (){
                     Get.to(()=>DeliverNotesScreen());
                   },
@@ -134,7 +138,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 InkWell(
                   onTap: () async {
                        Loader.showLoader(context);
-                       await prefs!.clear();
+                       await prefs?.clear();
                        await Get.deleteAll();
                        Future.delayed(Duration(seconds: 2),() async {
                          Loader.offLoader(context);
@@ -228,7 +232,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     if(result.success){
                       Future.delayed(Duration.zero,(){
                         if(prefs != null){
-                          prefs!.clear();
+                          prefs?.clear();
                         }
                       });
                       Get.offAll(()=>OnboardingScreen());

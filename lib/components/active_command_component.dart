@@ -205,7 +205,7 @@ class _ActiveCommandComponentState extends State<ActiveCommandComponent> {
                   ],
                 ),
                 SizedBox(height: 25,),
-                widget.course!.status == 'ACCEPTED' && prefs!.getString('role') == 'DELIVER'? GestureDetector(
+                widget.course!.status == 'ACCEPTED' && prefs?.getString('role') == 'DELIVER'? GestureDetector(
                   onTap: (){
                     Get.to(()=>StartCourseScreen(course : widget.course));
                     // enterCourseCode(context,widget.course.courseCode.toString());

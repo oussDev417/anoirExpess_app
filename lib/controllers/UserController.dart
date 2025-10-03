@@ -12,12 +12,17 @@ class UserController extends GetxController{
 
   getCurrentUser() async {
       try{
+        log('🔍 UserController: Starting getCurrentUser...');
         currentUser = await userService.getUserProfile();
-        log(currentUser!.lastname.toString());
+        if(currentUser != null) {
+          log('✅ UserController: User loaded successfully - ${currentUser!.firstname} ${currentUser!.lastname}');
+        } else {
+          log('❌ UserController: User is null - profile request failed');
+        }
         update();
       }
       catch(e){
-        log('error $e');
+        log('❌ UserController: Error in getCurrentUser: $e');
       }
   }
 

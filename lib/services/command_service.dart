@@ -18,7 +18,7 @@ class CommandService{
     try{
       const url = '$API_URL/courses/colis-types';
       var response = await http.get(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       });
       List<ColisType> types = [];
       log(response.statusCode.toString());
@@ -41,7 +41,7 @@ class CommandService{
     try{
       const url = '$API_URL/courses/estimate-price';
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },body: {
         "colisType" : colisType
       });
@@ -66,7 +66,7 @@ class CommandService{
     // try{
       const url = '$API_URL/courses';
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}",
+        "Authorization" : "Bearer ${prefs?.getString('token')}",
         "Content-Type" : "application/json"
       },body: json.encode(course.toJson()));
       log(response.statusCode.toString());
@@ -87,19 +87,19 @@ class CommandService{
   Future<List<Course>> getMyCourses() async {
     try{
       var response = null;
-      if(prefs!.getString('role') == 'CLIENT'){
+      if(prefs?.getString('role') == 'CLIENT'){
         var url = '$API_URL/courses/mine';
         response = await http.get(Uri.parse(url),headers: {
-          "Authorization" : "Bearer ${prefs!.getString('token')}"
+          "Authorization" : "Bearer ${prefs?.getString('token')}"
         });
       }
       else{
         var url = '$API_URL/courses/deliver/mine';
         response = await http.post(Uri.parse(url),headers: {
-          "Authorization" : "Bearer ${prefs!.getString('token')}"
+          "Authorization" : "Bearer ${prefs?.getString('token')}"
         },
         body: {
-          "deliverId" : prefs!.getString('deliverId')
+          "deliverId" : prefs?.getString('deliverId') ?? '' ?? ''
         });
       }
       log(response.statusCode.toString());
@@ -126,7 +126,7 @@ class CommandService{
     try{
       const url = '$API_URL/courses';
       var response = await http.get(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       });
       log(response.statusCode.toString());
       log(response.body.toString());
@@ -152,13 +152,13 @@ class CommandService{
     try{
     log('COURSE ID = $courseId');
     log('START  = $startEstimation');
-    log("DELIVER_ID  ="  + prefs!.getString('deliverId')!);
+    log("DELIVER_ID  ="  + (prefs?.getString('deliverId') ?? ''));
       const url = '$API_URL/courses/accept';
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },
       body: {
-        "deliverId" : prefs!.getString('deliverId'),
+        "deliverId" : prefs?.getString('deliverId') ?? '',
         "courseId" : courseId,
         "startEstimation" : startEstimation
       });
@@ -177,10 +177,10 @@ class CommandService{
     try{
       const url = '$API_URL/courses/my-last-accepted';
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },
         body: {
-          "deliverId" : prefs!.getString('deliverId'),
+          "deliverId" : prefs?.getString('deliverId') ?? '' ?? '',
         });
       log(response.statusCode.toString());
       log('ACTIVE COURSE BODY ' + response.body.toString());
@@ -201,7 +201,7 @@ class CommandService{
       };
       var response = await http.post(Uri.parse(url),headers: {
         "Content-Type": "application/json",
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },
           body: jsonEncode(body));
       log(response.statusCode.toString());
@@ -220,11 +220,11 @@ class CommandService{
       const url = '$API_URL/courses/end';
       var body = {
         "courseId" : courseId,
-        "deliverId" : prefs!.getString('deliverId'),
+        "deliverId" : prefs?.getString('deliverId') ?? '',
       };
       var response = await http.post(Uri.parse(url),headers: {
         "Content-Type": "application/json",
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },
           body: jsonEncode(body));
       log(response.statusCode.toString());
@@ -242,7 +242,7 @@ class CommandService{
     try{
       const url = '$API_URL/courses/get-course-by-id';
       var response = await http.post(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },
           body: {
             "courseId" : courseId,
@@ -262,7 +262,7 @@ class CommandService{
     try{
       const url = '$API_URL/courses/get-client-active-courses';
       var response = await http.get(Uri.parse(url),headers: {
-        "Authorization" : "Bearer ${prefs!.getString('token')}"
+        "Authorization" : "Bearer ${prefs?.getString('token')}"
       },);
       log(response.statusCode.toString());
       log(response.body.toString());

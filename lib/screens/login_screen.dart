@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ApiResult result = await authController.loginUser(usernameController.text.trim(),passwordController.text.trim());
                       Loader.offLoader(context);
                       if(result.success){
-                        if(prefs!.getString('role') == 'DELIVER'){
+                        if(prefs?.getString('role') == 'DELIVER'){
                           Get.offAll(()=>DeliverHomeScreen());
                         }
                         else{
