@@ -46,7 +46,7 @@ class CommandService{
         "colisType" : colisType
       });
       log(response.statusCode.toString());
-      log(response.body.toString());
+      log('ESTIMATE COURSE BODY ' + response.body.toString());
       if(response.statusCode == 200){
         List<dynamic> data = json.decode(response.body);
        return data;

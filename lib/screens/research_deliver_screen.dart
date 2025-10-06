@@ -70,8 +70,11 @@ class _ResearchDeliverScreenState extends State<ResearchDeliverScreen> {
 
   @override
   void initState() {
+    log('--- in researchDeliverScreen - ');
     startChrono();
+    log('--- chrono started- ');
     checkStatus();
+    log('--- check status- ');
     super.initState();
   }
 
@@ -81,6 +84,8 @@ class _ResearchDeliverScreenState extends State<ResearchDeliverScreen> {
     checkTimer!.cancel();
     super.dispose();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CommandController>(

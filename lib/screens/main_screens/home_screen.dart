@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: AppColors.primaryBlueColor,
                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(16),bottomLeft: Radius.circular(16))
                   ),
-                  child: Row(
+                  child: Row( 
                     children: [
                       CircleAvatar(child: Padding(
                         padding: const EdgeInsets.all(3.0),
@@ -162,51 +162,59 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   children: [
                     SizedBox(height: 5,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              Get.to(()=>SendPackageScreen());
-                            },
+                    Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Get.to(()=>SendPackageScreen());
+                          },
+                          child: Expanded(
                             child: Container(
                               padding: EdgeInsets.fromLTRB(10,10,10,0),
+                              margin: EdgeInsets.fromLTRB(20, 20, 10, 5),
+                              height: 45,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   color: AppColors.primaryRedColor.withOpacity(0.08)),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SvgPicture.asset('assets/svg/ic_send_package.svg'),
-                                   SizedBox(
-                                     width: 20,
-                                   ),
-                                   Text(
-                                    AppTranslations.of(context)!
-                                        .text('envoyerUnColis'),
-                                     textAlign: TextAlign.center,
-                                     style: TextStyle(
-                                        fontFamily: AppStyle.secondaryFont,
-                                         fontSize: AppStyle.size16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                   Spacer(),
+                                  //  SizedBox(
+                                  //    width: 20,
+                                  //  ),
+                                  //  Text(
+                                  //   AppTranslations.of(context)!
+                                  //       .text('envoyerUnColis'),
+                                  //    textAlign: TextAlign.center,
+                                  //    style: TextStyle(
+                                  //       fontFamily: AppStyle.secondaryFont,
+                                  //        fontSize: AppStyle.size16,
+                                  //       fontWeight: FontWeight.w500),
+                                  // ),
+                                  //  Spacer(),
                                   Icon(Icons.arrow_forward_ios,color: Colors.black,size: 15,)
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(width: 18,),
-                          GestureDetector(
-                            onTap: (){
-                              Get.to(()=>SendPackageScreen(isReceive : true));
-                            },
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Get.to(()=>SendPackageScreen(isReceive : true));
+                          },
+                          child: Expanded(
                             child: Container(
                               padding: EdgeInsets.fromLTRB(10,10,10,0),
+                              height: 45,
+                              margin: EdgeInsets.fromLTRB(10, 20, 20, 5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   color: AppColors.primaryRedColor.withOpacity(0.08)),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SvgPicture.asset('assets/svg/ic_receive_package.svg'),
                                   // SizedBox(
@@ -227,8 +235,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 5,),
                     Padding(padding: EdgeInsets.symmetric(horizontal: 20),
@@ -237,7 +245,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Get.to(()=>TransportPeopleScreen());
                       },
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(20,20,20,0),
+                        padding: EdgeInsets.fromLTRB(20,10,20,5),
+                        height: 45,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: AppColors.primaryBlueColor.withOpacity(0.8)),
@@ -265,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),)
                   ],
-                ) : SizedBox() ,
+                ) : SizedBox(), 
                 myCourses == null ? Container(height: 200,child: Center(child: CircularProgressIndicator(color: AppColors.primaryBlueColor,),),) : Expanded(
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -378,7 +387,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 )
-
               ],
             ),
           ),

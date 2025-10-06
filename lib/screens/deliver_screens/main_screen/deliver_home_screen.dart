@@ -61,9 +61,11 @@ class _DeliverHomeScreenState extends State<DeliverHomeScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getTrackingAuthorization();
       getCurrentUser();
       getAvailableCourses();
+    });
     super.initState();
   }
 
