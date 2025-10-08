@@ -97,7 +97,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 ) : SizedBox(),
                 InkWell(
                   onTap: (){
-                    Get.to(()=>AnoirWebviewScreen(url: 'https://anoirexpress.com/cgu',));
+                    launchUrl(Uri.parse('https://anoirexpress.com/cgu'));
+                    // Get.to(()=>AnoirWebviewScreen(url: 'https://anoirexpress.com/cgu',));
                   },
                   child: ListTile(
                       horizontalTitleGap: 10,
@@ -109,7 +110,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 InkWell(
                   onTap: (){
-                    Get.to(()=>AnoirWebviewScreen(url: 'https://anoirexpress.com/cgu',));
+                    launchUrl(Uri.parse('https://anoirexpress.com/cgu'));
+                    // Get.to(()=>AnoirWebviewScreen(url: 'https://anoirexpress.com/cgu',));
                   },
                   child: ListTile(
                       horizontalTitleGap: 10,
